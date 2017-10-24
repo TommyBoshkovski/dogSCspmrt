@@ -1,11 +1,6 @@
-FROM buildpack-deps:zesty
+FROM jupyter/scipy-notebook:cc9feab481f7
 
-# Set up locales properly
-RUN apt-get update && \
-    apt-get install --yes --no-install-recommends locales && \
-    apt-get purge && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+USER root
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -28,49 +23,18 @@ RUN adduser --disabled-password \
     ${NB_USER}
 WORKDIR ${HOME}
 
-RUN apt-get update && \
-    apt-get install --yes --no-install-recommends \
-       less \
-       nodejs-legacy \
-       npm \
-       && apt-get purge && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && \
-    apt-get install --yes \
-       python3 \
-       python3-dev \
-       python3-venv \
-       && apt-get purge && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-EXPOSE 8888
-
-# Almost all environment variables
-ENV APP_BASE /srv
-ENV VENV_PATH ${APP_BASE}/venv
-ENV NB_PYTHON_PREFIX ${VENV_PATH}
-# Special case PATH
-ENV PATH ${VENV_PATH}/bin:${PATH}
-RUN mkdir -p ${VENV_PATH} && \
-chown -R ${NB_USER}:${NB_USER} ${VENV_PATH}
-
-USER ${NB_USER}
-RUN python3 -m venv ${VENV_PATH}
-
-RUN pip install --no-cache-dir \
-    notebook==5.0.0 \
-    jupyterhub==0.7.2 \
-    ipywidgets==6.0.0 \
-    jupyterlab==0.24.1 && \
-jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
-jupyter serverextension enable --py jupyterlab --sys-prefix
+RUN apt-get update; \
+    apt-get install -y nodejs; \
+    apt-get install -y npm; \
+    apt-get install -y autoconf;\
+    apt-get install -y software-properties-common 
 
 
+RUN pip install ;\
+    pip install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master;\
+    jupyter contrib nbextension install --user;\
+    jupyter nbextensions_configurator enable --user;\
 
-# Copy and chown stuff. This doubles the size of the repo, because
-# you can't actually copy as USER, only as root! Thanks, Docker!
 USER root
 COPY author.png ${HOME}
 COPY copyright_neuropoly.png ${HOME}
@@ -85,6 +49,7 @@ COPY shifBanner.png ${HOME}
 COPY shiftSubs.mat ${HOME}
 COPY spgrShifts.mat ${HOME}
 COPY subshift.png ${HOME}
+COPY dogSCspmrt.ipynb ${HOME}
 
 RUN chown -R ${NB_USER}:${NB_USER} ${HOME}
 
