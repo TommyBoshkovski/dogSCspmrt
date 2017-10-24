@@ -72,7 +72,20 @@ jupyter serverextension enable --py jupyterlab --sys-prefix
 # Copy and chown stuff. This doubles the size of the repo, because
 # you can't actually copy as USER, only as root! Thanks, Docker!
 USER root
-COPY src/ ${HOME}
+COPY author.png ${HOME}
+COPY copyright_neuropoly.png ${HOME}
+COPY corMatrices.mat ${HOME}
+COPY fsirShifts.mat ${HOME}
+COPY histoConcordance.mat ${HOME}
+COPY histoCorrelation.mat ${HOME}
+COPY HowToRun.png ${HOME}
+COPY hybridMatrix.png ${HOME}
+COPY mtvShifts.mat ${HOME}
+COPY shifBanner.png ${HOME}
+COPY shiftSubs.mat ${HOME}
+COPY spgrShifts.mat ${HOME}
+COPY subshift.png ${HOME}
+
 RUN chown -R ${NB_USER}:${NB_USER} ${HOME}
 
 # Run assemble scripts! These will actually build the specification
