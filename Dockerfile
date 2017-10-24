@@ -10,17 +10,10 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 # Use bash as default shell, rather than sh
-ENV SHELL /bin/bash
 
-# Set up user
-ENV NB_USER jovyan
-ENV NB_UID 1000
-ENV HOME /home/${NB_USER}
 
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
+
+
 WORKDIR ${HOME}
 
 RUN apt-get update; \
@@ -35,7 +28,6 @@ RUN pip install ;\
     jupyter contrib nbextension install --user;\
     jupyter nbextensions_configurator enable --user;\
 
-USER root
 COPY author.png ${HOME}
 COPY copyright_neuropoly.png ${HOME}
 COPY corMatrices.mat ${HOME}
