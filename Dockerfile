@@ -26,7 +26,7 @@ RUN apt-get update; \
 RUN pip install ;\
     pip install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master;\
     jupyter contrib nbextension install --user;\
-    jupyter nbextensions_configurator enable --user;\
+    jupyter nbextensions_configurator enable --user
 
 COPY author.png ${HOME}
 COPY copyright_neuropoly.png ${HOME}
