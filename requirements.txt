@@ -2,7 +2,6 @@ traitlets>=4.3.1
 ipython
 pandas
 numpy
-csv 
 bokeh
 scipy 
 subprocess
@@ -10,5 +9,5 @@ seaborn
 ipywidgets 
 collections
 matplotlib
-warnings
+warningsqs 
 ipyleaflet
