@@ -11,5 +11,4 @@ ipywidgets
 collections
 matplotlib
 warnings
-__future__
 ipyleaflet
