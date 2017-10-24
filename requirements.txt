@@ -4,10 +4,7 @@ pandas
 numpy
 bokeh
 scipy 
-subprocess
 seaborn
 ipywidgets 
-collections
 matplotlib
-warningsqs 
 ipyleaflet
