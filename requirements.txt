@@ -8,4 +8,3 @@ seaborn
 ipywidgets 
 matplotlib
 ipyleaflet
-codefolding/main
