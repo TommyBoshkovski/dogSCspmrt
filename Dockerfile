@@ -43,7 +43,7 @@ COPY spgrShifts.mat ${HOME}
 COPY subshift.png ${HOME}
 COPY dogSCspmrt.ipynb ${HOME}
 
-RUN chown -R ${NB_USER}:${NB_USER} ${HOME}
+
 
 # Run assemble scripts! These will actually build the specification
 # in the repository into the image.
